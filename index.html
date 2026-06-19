@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Actividad 3 Proyecto. Visualización adaptada</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white:      #ffffff;
+      --off-white:  #f7f8fa;
+      --gray-100:   #eef0f3;
+      --gray-300:   #c8cdd6;
+      --gray-500:   #8a93a2;
+      --gray-700:   #4a5263;
+      --gray-900:   #1a1f2e;
+      --blue-light: #5b9bd5;
+      --blue-mid:   #2d6ea8;
+      --blue-accent:#e8f2fb;
+      --rule:       #d4d9e3;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--white);
+      color: var(--gray-900);
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--white);
+      border-bottom: 1px solid var(--rule);
+      padding: 0 2rem;
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.8rem 0 2.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .header-eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--blue-mid);
+      margin-bottom: 0.75rem;
+    }
+
+    .header-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+      font-weight: 700;
+      color: var(--gray-900);
+      line-height: 1.22;
+      max-width: 820px;
+    }
+
+    .header-title em {
+      font-style: italic;
+      color: var(--blue-mid);
+    }
+
+    .header-divider {
+      width: 52px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--blue-mid), var(--blue-light));
+      border-radius: 2px;
+      margin: 1.4rem 0 1.2rem;
+    }
+
+    .header-authors {
+      font-size: 0.82rem;
+      font-weight: 400;
+      color: var(--gray-500);
+      letter-spacing: 0.03em;
+    }
+
+    .header-authors strong {
+      font-weight: 500;
+      color: var(--gray-700);
+    }
+
+    /* ── Main ── */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 2rem 4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+    }
+
+    /* ── Chart section ── */
+    .chart-section {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .chart-label {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .chart-number {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--blue-mid);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .chart-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.98rem;
+      font-weight: 500;
+      color: var(--gray-700);
+      line-height: 1.4;
+    }
+
+    .chart-frame {
+      background: var(--off-white);
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+      height: 520px;
+    }
+
+    /* Scimago iframes need absolute internal children — wrap to control height */
+    .chart-frame > div {
+      position: absolute !important;
+      top: 0; left: 0; right: 0; bottom: 0;
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    /* ── Sources ── */
+    .sources-section {
+      border-top: 1px solid var(--rule);
+      padding-top: 2rem;
+    }
+
+    .sources-heading {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      margin-bottom: 1.1rem;
+    }
+
+    .sources-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .sources-list li {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      font-size: 0.82rem;
+      color: var(--gray-700);
+      line-height: 1.5;
+    }
+
+    .source-bullet {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--blue-light);
+      flex-shrink: 0;
+      margin-top: 0.48em;
+    }
+
+    .sources-list a {
+      color: var(--blue-mid);
+      text-decoration: none;
+      word-break: break-all;
+      font-size: 0.78rem;
+    }
+
+    .sources-list a:hover { text-decoration: underline; }
+
+    .source-meta {
+      color: var(--gray-500);
+      font-size: 0.75rem;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--off-white);
+      border-top: 1px solid var(--rule);
+      padding: 1.4rem 2rem;
+      text-align: center;
+      font-size: 0.72rem;
+      color: var(--gray-500);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .header-inner { padding: 1.8rem 0 1.6rem; }
+      .chart-frame  { height: 420px; }
+      main          { padding: 2rem 1.2rem 3rem; gap: 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <p class="header-eyebrow">Máster en Análisis y Visualización de Datos Masivos</p>
+    <h1 class="header-title">Actividad 3 Proyecto.<br><em>Visualización adaptada</em></h1>
+    <div class="header-divider"></div>
+    <p class="header-authors">
+      <strong>Jorge Andrés Pérez G</strong>
+      <span style="margin:0 0.5em;color:var(--gray-300)">·</span>
+      <strong>Hugo Fernando Sánchez C</strong>
+    </p>
+  </div>
+</header>
+
+<main>
+
+  <!-- Gráfica 1 -->
+  <section class="chart-section">
+    <div class="chart-label">
+      <span class="chart-number">1</span>
+      <span class="chart-title">Comportamiento del Gini index de países latinoamericanos vs España en el tiempo</span>
+    </div>
+    <div class="chart-frame">
+
+      <!-- Scimago chart 1 (Gini index) -->
+      <div style="position: relative;width: 100%;overflow: hidden;height:100%;user-select:none"><div id="bc9cd828-615c-442c-ce54-f85b6d703554" style="font-family: 'Inter', sans-serif;position: absolute;top: 0;left: 0;bottom: 0;right: 0;  width: 100%;height: 100%;border: none;" ></div></div><script src="https://www.graphica.app/graphicajs/papaparse.min.js" type="text/javascript"></script><script src="https://www.graphica.app/graphicajs/Mexp.js" type="text/javascript"></script><script type="text/javascript">const mexp=new Mexp();</script><script src="https://www.graphica.app/graphicajs/graphica.1.0.55.js" type="text/javascript"></script><link rel="preconnect" href="https://fonts.gstatic.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap" rel="preload" as="style"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap" rel="stylesheet"><script type="text/javascript">main(function () {var settings={"general":{"label_config":"","tooltip_config":"Code: [Code]<br/>Gini index (SEDLAC): [Gini index (SEDLAC)]<br/>Año:[Año]","default_shape":"line","highlight_on_hover":true,"highlight_same_color_elements_on_hover":true,"reference_lines":"none","layout":"default","line_type":"none","line_shading":"none","interpolate_missing_values":false,"legend_position":"auto","default_size":4,"font_family":"Inter","saturation":-0.3},"grammar":[{"variable":"Gini index (SEDLAC)","property":"AXIS_Y","thousands_abbreviation":"","millions_abbreviation":"","billions_abbreviation":"","decimal_separator_format":".","label":"Comportamiento del Gini index de países latinoamericanos vs España en el tiempo"},{"variable":"Año","property":"AXIS_X","maximum_fraction_digits":-1,"decimal_separator_format":".","thousands_abbreviation":"","millions_abbreviation":"","billions_abbreviation":""},{"variable":"País","property":"COLOR","interaction":"multiple"},{"variable":"Code","property":"TOOLTIP"},{"variable":"Año","property":"TOOLTIP","decimal_separator_format":"."},{"variable":"Gini index (SEDLAC)","property":"TOOLTIP"}]};var data="País;Code;Año;Gini index (SEDLAC)\n\"Argentina\";\"ARG\";1974;0.33260202\n\"Argentina\";\"ARG\";1980;0.38000806\n\"Argentina\";\"ARG\";1986;0.41178111\n\"Argentina\";\"ARG\";1987;0.43496194\n\"Argentina\";\"ARG\";1988;0.44120889\n\"Argentina\";\"ARG\";1991;0.44428202\n\"Argentina\";\"ARG\";1992;0.43416825\n\"Argentina\";\"ARG\";1993;0.42799667\n\"Argentina\";\"ARG\";1994;0.43752305\n\"Argentina\";\"ARG\";1995;0.4678178\n\"Argentina\";\"ARG\";1996;0.47272785\n\"Argentina\";\"ARG\";1997;0.46872105\n\"Argentina\";\"ARG\";1998;0.48445621\n\"Argentina\";\"ARG\";1999;0.47561652\n\"Argentina\";\"ARG\";2000;0.48942144\n\"Argentina\";\"ARG\";2001;0.51313927\n\"Argentina\";\"ARG\";2002;0.51779179\n\"Argentina\";\"ARG\";2003;0.48330972\n\"Argentina\";\"ARG\";2004;0.45807555\n\"Argentina\";\"ARG\";2005;0.45310573\n\"Argentina\";\"ARG\";2006;0.44235414\n\"Argentina\";\"ARG\";2007;0.4395017\n\"Argentina\";\"ARG\";2008;0.42073921\n\"Argentina\";\"ARG\";2009;0.41472306\n\"Argentina\";\"ARG\";2010;0.40344752\n\"Argentina\";\"ARG\";2011;0.39556479\n\"Argentina\";\"ARG\";2012;0.38462878\n\"Argentina\";\"ARG\";2013;0.38118761\n\"Argentina\";\"ARG\";2014;0.3841401\n\"Argentina\";\"ARG\";2015;0.37555172\n\"Argentina\";\"ARG\";2016;0.39463399\n\"Argentina\";\"ARG\";2017;0.38626491\n\"Bolivia\";\"BOL\";1992;0.47213221\n\"Bolivia\";\"BOL\";1993;0.51576586\n\"Bolivia\";\"BOL\";1997;0.56327953\n\"Bolivia\";\"BOL\";1999;0.56418199\n\"Bolivia\";\"BOL\";2000;0.5985646\n\"Bolivia\";\"BOL\";2001;0.55426034\n\"Bolivia\";\"BOL\";2002;0.57565898\n\"Bolivia\";\"BOL\";2005;0.56558946\n\"Bolivia\";\"BOL\";2006;0.54595131\n\"Bolivia\";\"BOL\";2007;0.52237247\n\"Bolivia\";\"BOL\";2008;0.48713897\n\"Bolivia\";\"BOL\";2009;0.47057762\n\"Bolivia\";\"BOL\";2011;0.43865007\n\"Bolivia\";\"BOL\";2012;0.44593634\n\"Bolivia\";\"BOL\";2013;0.4556241\n\"Bolivia\";\"BOL\";2014;0.45638834\n\"Bolivia\";\"BOL\";2015;0.44545837\n\"Bolivia\";\"BOL\";2016;0.42296023\n\"Bolivia\";\"BOL\";2017;0.41813929\n\"Brazil\";\"BRA\";1981;0.55266283\n\"Brazil\";\"BRA\";1982;0.55884383\n\"Brazil\";\"BRA\";1983;0.56511299\n\"Brazil\";\"BRA\";1984;0.55883613\n\"Brazil\";\"BRA\";1985;0.53084866\n\"Brazil\";\"BRA\";1986;0.56176871\n\"Brazil\";\"BRA\";1987;0.57317193\n\"Brazil\";\"BRA\";1988;0.59340781\n\"Brazil\";\"BRA\";1989;0.61212059\n\"Brazil\";\"BRA\";1990;0.58861536\n\"Brazil\";\"BRA\";1993;0.58492095\n\"Brazil\";\"BRA\";1995;0.57842319\n\"Brazil\";\"BRA\";1996;0.58283257\n\"Brazil\";\"BRA\";1997;0.58161734\n\"Brazil\";\"BRA\";1998;0.5787884\n\"Brazil\";\"BRA\";1999;0.57236478\n\"Brazil\";\"BRA\";2001;0.56543838\n\"Brazil\";\"BRA\";2002;0.56255721\n\"Brazil\";\"BRA\";2003;0.55659808\n\"Brazil\";\"BRA\";2004;0.54527684\n\"Brazil\";\"BRA\";2005;0.54334933\n\"Brazil\";\"BRA\";2006;0.53713346\n\"Brazil\";\"BRA\";2007;0.53040091\n\"Brazil\";\"BRA\";2008;0.52109107\n\"Brazil\";\"BRA\";2009;0.51778081\n\"Brazil\";\"BRA\";2011;0.51097591\n\"Brazil\";\"BRA\";2012;0.50697274\n\"Brazil\";\"BRA\";2013;0.50966114\n\"Brazil\";\"BRA\";2014;0.49685929\n\"Brazil\";\"BRA\";2015;0.4953849\n\"Brazil\";\"BRA\";2016;0.51419517\n\"Chile\";\"CHL\";1987;0.54894312\n\"Chile\";\"CHL\";1990;0.55937807\n\"Chile\";\"CHL\";1992;0.53239771\n\"Chile\";\"CHL\";1994;0.55089569\n\"Chile\";\"CHL\";1996;0.53593035\n\"Chile\";\"CHL\";1998;0.54193767\n\"Chile\";\"CHL\";2000;0.51705373\n\"Chile\";\"CHL\";2003;0.49990167\n\"Chile\";\"CHL\";2006;0.45290172\n\"Chile\";\"CHL\";2009;0.46988272\n\"Chile\";\"CHL\";2011;0.44688136\n\"Chile\";\"CHL\";2013;0.44716338\n\"Chile\";\"CHL\";2015;0.43388865\n\"Colombia\";\"COL\";2001;0.55113062\n\"Colombia\";\"COL\";2002;0.53459564\n\"Colombia\";\"COL\";2003;0.51476572\n\"Colombia\";\"COL\";2004;0.53407921\n\"Colombia\";\"COL\";2005;0.52103731\n\"Colombia\";\"COL\";2008;0.53324413\n\"Colombia\";\"COL\";2009;0.52201718\n\"Colombia\";\"COL\";2010;0.52464852\n\"Colombia\";\"COL\";2011;0.51306586\n\"Colombia\";\"COL\";2012;0.50530843\n\"Colombia\";\"COL\";2013;0.50522731\n\"Colombia\";\"COL\";2014;0.50410927\n\"Colombia\";\"COL\";2015;0.48795079\n\"Colombia\";\"COL\";2016;0.48502888\n\"Costa Rica\";\"CRI\";1989;0.43675332\n\"Costa Rica\";\"CRI\";1990;0.43544999\n\"Costa Rica\";\"CRI\";1991;0.44674308\n\"Costa Rica\";\"CRI\";1992;0.43897319\n\"Costa Rica\";\"CRI\";1993;0.4423002\n\"Costa Rica\";\"CRI\";1994;0.4479459\n\"Costa Rica\";\"CRI\";1995;0.44012366\n\"Costa Rica\";\"CRI\";1996;0.44789697\n\"Costa Rica\";\"CRI\";1997;0.43615441\n\"Costa Rica\";\"CRI\";1998;0.43725902\n\"Costa Rica\";\"CRI\";1999;0.45740165\n\"Costa Rica\";\"CRI\";2000;0.45608923\n\"Costa Rica\";\"CRI\";2001;0.49612324\n\"Costa Rica\";\"CRI\";2002;0.50237275\n\"Costa Rica\";\"CRI\";2003;0.47448353\n\"Costa Rica\";\"CRI\";2004;0.46487221\n\"Costa Rica\";\"CRI\";2005;0.45490283\n\"Costa Rica\";\"CRI\";2006;0.47606953\n\"Costa Rica\";\"CRI\";2007;0.47531605\n\"Costa Rica\";\"CRI\";2008;0.46853517\n\"Costa Rica\";\"CRI\";2009;0.48787469\n\"Costa Rica\";\"CRI\";2010;0.46352025\n\"Costa Rica\";\"CRI\";2011;0.46780586\n\"Costa Rica\";\"CRI\";2012;0.46735085\n\"Costa Rica\";\"CRI\";2013;0.4755107\n\"Costa Rica\";\"CRI\";2014;0.46863485\n\"Costa Rica\";\"CRI\";2015;0.46621688\n\"Costa Rica\";\"CRI\";2016;0.46877051\n\"Costa Rica\";\"CRI\";2017;0.46606367\n\"Dominican Republic\";\"DOM\";1996;0.45862798\n\"Dominican Republic\";\"DOM\";1997;0.47051843\n\"Dominican Republic\";\"DOM\";2000;0.50360429\n\"Dominican Republic\";\"DOM\";2001;0.48624098\n\"Dominican Republic\";\"DOM\";2002;0.48239247\n\"Dominican Republic\";\"DOM\";2003;0.50167035\n\"Dominican Republic\";\"DOM\";2004;0.50072729\n\"Dominican Republic\";\"DOM\";2005;0.47863358\n\"Dominican Republic\";\"DOM\";2006;0.50223978\n\"Dominican Republic\";\"DOM\";2007;0.46624419\n\"Dominican Republic\";\"DOM\";2008;0.45411868\n\"Dominican Republic\";\"DOM\";2009;0.46437505\n\"Dominican Republic\";\"DOM\";2010;0.45138746\n\"Dominican Republic\";\"DOM\";2011;0.45344701\n\"Dominican Republic\";\"DOM\";2012;0.43465003\n\"Dominican Republic\";\"DOM\";2013;0.44834449\n\"Dominican Republic\";\"DOM\";2014;0.42188592\n\"Dominican Republic\";\"DOM\";2015;0.42815433\n\"Dominican Republic\";\"DOM\";2016;0.43460218\n\"Ecuador\";\"ECU\";1995;0.55891139\n\"Ecuador\";\"ECU\";1998;0.55740754\n\"Ecuador\";\"ECU\";1999;0.56733783\n\"Ecuador\";\"ECU\";2000;0.5466864\n\"Ecuador\";\"ECU\";2003;0.51244505\n\"Ecuador\";\"ECU\";2004;0.51988423\n\"Ecuador\";\"ECU\";2005;0.50944563\n\"Ecuador\";\"ECU\";2006;0.49903782\n\"Ecuador\";\"ECU\";2007;0.51050734\n\"Ecuador\";\"ECU\";2008;0.47526512\n\"Ecuador\";\"ECU\";2009;0.45989773\n\"Ecuador\";\"ECU\";2010;0.46394457\n\"Ecuador\";\"ECU\";2011;0.43627046\n\"Ecuador\";\"ECU\";2012;0.43829174\n\"Ecuador\";\"ECU\";2013;0.44546314\n\"Ecuador\";\"ECU\";2014;0.42583877\n\"Ecuador\";\"ECU\";2015;0.4353211\n\"Ecuador\";\"ECU\";2016;0.42812152\n\"El Salvador\";\"SLV\";2000;0.49254175\n\"El Salvador\";\"SLV\";2001;0.49385167\n\"El Salvador\";\"SLV\";2002;0.49766747\n\"El Salvador\";\"SLV\";2004;0.45739872\n\"El Salvador\";\"SLV\";2005;0.46391589\n\"El Salvador\";\"SLV\";2006;0.43570865\n\"El Salvador\";\"SLV\";2007;0.43061156\n\"El Salvador\";\"SLV\";2008;0.44829849\n\"El Salvador\";\"SLV\";2009;0.43770091\n\"El Salvador\";\"SLV\";2010;0.41382307\n\"El Salvador\";\"SLV\";2011;0.40042347\n\"El Salvador\";\"SLV\";2012;0.39605307\n\"El Salvador\";\"SLV\";2013;0.4138841\n\"El Salvador\";\"SLV\";2014;0.39537475\n\"El Salvador\";\"SLV\";2015;0.38359633\n\"El Salvador\";\"SLV\";2016;0.37957119\n\"Guatemala\";\"GTM\";2000;0.51628112\n\"Guatemala\";\"GTM\";2002;0.54236489\n\"Guatemala\";\"GTM\";2003;0.51689407\n\"Guatemala\";\"GTM\";2004;0.48089283\n\"Guatemala\";\"GTM\";2006;0.51853563\n\"Guatemala\";\"GTM\";2011;0.49896697\n\"Guatemala\";\"GTM\";2014;0.45752781\n\"Honduras\";\"HND\";1991;0.51813819\n\"Honduras\";\"HND\";1992;0.52590608\n\"Honduras\";\"HND\";1993;0.52067876\n\"Honduras\";\"HND\";1994;0.53891017\n\"Honduras\";\"HND\";1995;0.54247131\n\"Honduras\";\"HND\";1996;0.54990209\n\"Honduras\";\"HND\";1997;0.495364\n\"Honduras\";\"HND\";1998;0.50049877\n\"Honduras\";\"HND\";1999;0.48077293\n\"Honduras\";\"HND\";2001;0.53180022\n\"Honduras\";\"HND\";2002;0.53743566\n\"Honduras\";\"HND\";2003;0.56157332\n\"Honduras\";\"HND\";2004;0.56615942\n\"Honduras\";\"HND\";2005;0.5773912\n\"Honduras\";\"HND\";2006;0.55648661\n\"Honduras\";\"HND\";2007;0.53880681\n\"Honduras\";\"HND\";2008;0.53616822\n\"Honduras\";\"HND\";2009;0.49337037\n\"Honduras\";\"HND\";2010;0.51205174\n\"Honduras\";\"HND\";2011;0.54686148\n\"Honduras\";\"HND\";2012;0.54309668\n\"Honduras\";\"HND\";2013;0.50398645\n\"Honduras\";\"HND\";2014;0.48340111\n\"Honduras\";\"HND\";2015;0.47593638\n\"Honduras\";\"HND\";2016;0.48111002\n\"Mexico\";\"MEX\";1989;0.48634231\n\"Mexico\";\"MEX\";1992;0.50319677\n\"Mexico\";\"MEX\";1994;0.50428908\n\"Mexico\";\"MEX\";1996;0.51369854\n\"Mexico\";\"MEX\";1998;0.49445189\n\"Mexico\";\"MEX\";2000;0.50459705\n\"Mexico\";\"MEX\";2002;0.48000489\n\"Mexico\";\"MEX\";2004;0.47845336\n\"Mexico\";\"MEX\";2005;0.48091063\n\"Mexico\";\"MEX\";2006;0.46539448\n\"Mexico\";\"MEX\";2008;0.4768016\n\"Mexico\";\"MEX\";2010;0.44882933\n\"Mexico\";\"MEX\";2012;0.46331329\n\"Mexico\";\"MEX\";2014;0.46375218\n\"Mexico\";\"MEX\";2016;0.46088826\n\"Nicaragua\";\"NIC\";1993;0.55378388\n\"Nicaragua\";\"NIC\";1998;0.52417103\n\"Nicaragua\";\"NIC\";2001;0.50339829\n\"Nicaragua\";\"NIC\";2005;0.46407107\n\"Nicaragua\";\"NIC\";2009;0.41718387\n\"Nicaragua\";\"NIC\";2014;0.44247905\n\"Panama\";\"PAN\";1989;0.57319111\n\"Panama\";\"PAN\";1991;0.56390091\n\"Panama\";\"PAN\";1995;0.55851419\n\"Panama\";\"PAN\";1997;0.56178526\n\"Panama\";\"PAN\";1998;0.5531047\n\"Panama\";\"PAN\";1999;0.54232447\n\"Panama\";\"PAN\";2000;0.54635689\n\"Panama\";\"PAN\";2001;0.54738049\n\"Panama\";\"PAN\";2002;0.5398599\n\"Panama\";\"PAN\";2003;0.53745956\n\"Panama\";\"PAN\";2004;0.52781744\n\"Panama\";\"PAN\";2005;0.51705153\n\"Panama\";\"PAN\";2006;0.52560902\n\"Panama\";\"PAN\";2007;0.50537503\n\"Panama\";\"PAN\";2008;0.50736258\n\"Panama\";\"PAN\";2009;0.49254593\n\"Panama\";\"PAN\";2010;0.49134794\n\"Panama\";\"PAN\";2011;0.49414229\n\"Panama\";\"PAN\";2012;0.49738159\n\"Panama\";\"PAN\";2013;0.49293896\n\"Panama\";\"PAN\";2014;0.4812824\n\"Panama\";\"PAN\";2015;0.48754367\n\"Panama\";\"PAN\";2016;0.48372021\n\"Paraguay\";\"PRY\";1990;0.3890067\n\"Paraguay\";\"PRY\";1995;0.56348661\n\"Paraguay\";\"PRY\";1997;0.52934404\n\"Paraguay\";\"PRY\";1999;0.52317722\n\"Paraguay\";\"PRY\";2001;0.52384551\n\"Paraguay\";\"PRY\";2002;0.55567458\n\"Paraguay\";\"PRY\";2003;0.53394349\n\"Paraguay\";\"PRY\";2004;0.50257191\n\"Paraguay\";\"PRY\";2005;0.49232875\n\"Paraguay\";\"PRY\";2006;0.51102787\n\"Paraguay\";\"PRY\";2007;0.50053721\n\"Paraguay\";\"PRY\";2008;0.48608733\n\"Paraguay\";\"PRY\";2009;0.47538733\n\"Paraguay\";\"PRY\";2010;0.49832953\n\"Paraguay\";\"PRY\";2011;0.51014636\n\"Paraguay\";\"PRY\";2012;0.46062873\n\"Paraguay\";\"PRY\";2013;0.4635716\n\"Paraguay\";\"PRY\";2014;0.49708509\n\"Paraguay\";\"PRY\";2015;0.46283894\n\"Paraguay\";\"PRY\";2016;0.46087562\n\"Paraguay\";\"PRY\";2017;0.47084162\n\"Peru\";\"PER\";1997;0.51187898\n\"Peru\";\"PER\";1998;0.52737882\n\"Peru\";\"PER\";1999;0.52656492\n\"Peru\";\"PER\";2000;0.47046411\n\"Peru\";\"PER\";2001;0.49445664\n\"Peru\";\"PER\";2002;0.51560959\n\"Peru\";\"PER\";2003;0.51020572\n\"Peru\";\"PER\";2004;0.48026415\n\"Peru\";\"PER\";2005;0.48502278\n\"Peru\";\"PER\";2006;0.48198969\n\"Peru\";\"PER\";2007;0.4818123\n\"Peru\";\"PER\";2008;0.4565373\n\"Peru\";\"PER\";2009;0.45165601\n\"Peru\";\"PER\";2010;0.43787548\n\"Peru\";\"PER\";2011;0.42834535\n\"Peru\";\"PER\";2012;0.42782959\n\"Peru\";\"PER\";2013;0.42099513\n\"Peru\";\"PER\";2014;0.4132215\n\"Peru\";\"PER\";2015;0.41502203\n\"Peru\";\"PER\";2016;0.41924994\n\"Uruguay\";\"URY\";1989;0.40426993\n\"Uruguay\";\"URY\";1992;0.39263905\n\"Uruguay\";\"URY\";1995;0.38561101\n\"Uruguay\";\"URY\";1996;0.38392398\n\"Uruguay\";\"URY\";1997;0.39040002\n\"Uruguay\";\"URY\";1998;0.3997152\n\"Uruguay\";\"URY\";2000;0.4024572\n\"Uruguay\";\"URY\";2001;0.42723905\n\"Uruguay\";\"URY\";2002;0.43110026\n\"Uruguay\";\"URY\";2003;0.42512322\n\"Uruguay\";\"URY\";2004;0.43541041\n\"Uruguay\";\"URY\";2005;0.42406096\n\"Uruguay\";\"URY\";2006;0.43621376\n\"Uruguay\";\"URY\";2007;0.43992983\n\"Uruguay\";\"URY\";2008;0.42952952\n\"Uruguay\";\"URY\";2009;0.4336777\n\"Uruguay\";\"URY\";2010;0.42134382\n\"Uruguay\";\"URY\";2011;0.39835924\n\"Uruguay\";\"URY\";2012;0.37350379\n\"Uruguay\";\"URY\";2013;0.38132101\n\"Uruguay\";\"URY\";2014;0.37744866\n\"Uruguay\";\"URY\";2015;0.37814466\n\"Uruguay\";\"URY\";2016;0.37390662\n\"Venezuela\";\"VEN\";1989;0.40918107\n\"Venezuela\";\"VEN\";1992;0.3948014\n\"Venezuela\";\"VEN\";1995;0.44378367\n\"Venezuela\";\"VEN\";1997;0.46024958\n\"Venezuela\";\"VEN\";1998;0.45385194\n\"Venezuela\";\"VEN\";1999;0.45226588\n\"Venezuela\";\"VEN\";2000;0.42408563\n\"Venezuela\";\"VEN\";2001;0.44688217\n\"Venezuela\";\"VEN\";2002;0.4597117\n\"Venezuela\";\"VEN\";2003;0.44826046\n\"Venezuela\";\"VEN\";2004;0.44109288\n\"Venezuela\";\"VEN\";2005;0.46249678\n\"Venezuela\";\"VEN\";2006;0.41616481\n\"España\";\"ESP\";1980;0.345\n\"España\";\"ESP\";1985;0.344\n\"España\";\"ESP\";1990;0.32\n\"España\";\"ESP\";1993;0.357\n\"España\";\"ESP\";1994;0.351\n\"España\";\"ESP\";1995;0.357\n\"España\";\"ESP\";1996;0.365\n\"España\";\"ESP\";1997;0.353\n\"España\";\"ESP\";1998;0.346\n\"España\";\"ESP\";1999;0.338\n\"España\";\"ESP\";2000;0.341\n\"España\";\"ESP\";2003;0.318\n\"España\";\"ESP\";2004;0.333\n\"España\";\"ESP\";2005;0.324\n\"España\";\"ESP\";2006;0.335\n\"España\";\"ESP\";2007;0.341\n\"España\";\"ESP\";2008;0.342\n\"España\";\"ESP\";2009;0.349\n\"España\";\"ESP\";2010;0.352\n\"España\";\"ESP\";2011;0.357\n\"España\";\"ESP\";2012;0.354\n\"España\";\"ESP\";2013;0.362\n\"España\";\"ESP\";2014;0.361\n\"España\";\"ESP\";2015;0.362\n\"España\";\"ESP\";2016;0.358\n\"España\";\"ESP\";2017;0.347\n\"España\";\"ESP\";2018;0.347\n\"España\";\"ESP\";2019;0.343\n\"España\";\"ESP\";2020;0.349\n\"España\";\"ESP\";2021;0.339\n\"España\";\"ESP\";2022;0.336\n\"España\";\"ESP\";2023;0.334\n";var ds=new graphica.Dataset({data: data,datatypes: {"País":"string","Code":"string","Año":"number","Gini index (SEDLAC)":"number"},compute: []}).done(function () {new graphica.Chart(this).add("bc9cd828-615c-442c-ce54-f85b6d703554",settings);});});</script>
+
+    </div>
+  </section>
+
+  <!-- Gráfica 2 -->
+  <section class="chart-section">
+    <div class="chart-label">
+      <span class="chart-number">2</span>
+      <span class="chart-title">Relación del PIB con el Gasto de turismo internacional en el país (Datos en Billones de Dólares)</span>
+    </div>
+    <div class="chart-frame">
+
+      <!-- Scimago chart 2 (PIB vs Turismo) -->
+      <div style="position: relative;width: 100%;overflow: hidden;height:100%;user-select:none"><div id="94d9b3c5-c4c8-4f55-9d21-21d5528aaecc" style="font-family: 'Inter', sans-serif;position: absolute;top: 0;left: 0;bottom: 0;right: 0;  width: 100%;height: 100%;border: none;" ></div></div><script type="text/javascript">main(function () {var settings={"general":{"label_config":"","tooltip_config":"Código: [Código]<br/>Gasto de turismo internacional: USD [Gasto de turismo internacional en Dólares]<br/>PIB: USD[PIB]","saturation":-0.15,"legend_position":"auto","highlight_on_hover":true,"highlight_same_color_elements_on_hover":true,"default_shape":"filled disk","layout":"default","reference_lines":"none"},"grammar":[{"variable":"Gasto de turismo internacional en Dólares","property":"AXIS_Y","billions_abbreviation":"B","label":"Relación del PIB con el Gasto de turismo internacional en el país (Datos en Billones de Dólares)"},{"variable":"PIB","property":"AXIS_X","decimal_separator_format":".","billions_abbreviation":"B"},{"variable":"País","property":"COLOR","interaction":"multiple"},{"variable":"Código","property":"TOOLTIP"},{"variable":"Gasto de turismo internacional en Dólares","property":"TOOLTIP","billions_abbreviation":"B","decimal_separator_format":"."},{"variable":"PIB","property":"TOOLTIP","billions_abbreviation":"B","decimal_separator_format":"."}]};var data="País;Código;PIB;Gasto de turismo internacional en Dólares\n\"Argentina\";\"ARG\";447755000000;9845000000\n\"Bolivia\";\"BOL\";49056643589;1111000000\n\"Brasil\";\"BRA\";1873290000000;21178000000\n\"Chile\";\"CHL\";278285000000;3142000000\n\"Colombia\";\"COL\";323032000000;5658000000\n\"Costa Rica\";\"CRI\";64417670521;1330000000\n\"República Dominicana\";\"DOM\";89146130744;1060000000\n\"Ecuador\";\"ECU\";107596000000;1650000000\n\"El Salvador\";\"SLV\";26881140000;504000000\n\"Guatemala\";\"GTM\";77172331693;1128000000\n\"Honduras\";\"HND\";24882225741;655000000\n\"México\";\"MEX\";1304110000000;12300000000\n\"Nicaragua\";\"NIC\";12699023614;312000000\n\"Panamá\";\"PAN\";69778991192;1623000000\n\"Paraguay\";\"PRY\";37925338329;552000000\n\"Perú\";\"PER\";228346000000;3627399902\n\"Uruguay\";\"URY\";62222313618;1424000000\n\"Venezuela\";\"VEN\";73014084091;0\n\"España\";\"ESP\";1403500000000;0\n";var ds=new graphica.Dataset({data: data,datatypes: {"País":"string","Código":"string","PIB":"number","Gasto de turismo internacional en Dólares":"number"},compute: []}).done(function () {new graphica.Chart(this).add("94d9b3c5-c4c8-4f55-9d21-21d5528aaecc",settings);});});</script>
+
+    </div>
+
+    <!-- Sources immediately after chart 2 -->
+    <div class="sources-section" style="margin-top:2rem;">
+      <p class="sources-heading">Fuentes</p>
+      <ul class="sources-list">
+        <li>
+          <span class="source-bullet"></span>
+          <span>
+            <a href="https://yusef.es/dataset/income-inequality-in-latin-america.csv" target="_blank" rel="noopener">https://yusef.es/dataset/income-inequality-in-latin-america.csv</a>
+            <span class="source-meta"> — Yusef Hassan Montero, 2026</span>
+          </span>
+        </li>
+        <li>
+          <span class="source-bullet"></span>
+          <span>
+            <a href="https://datos.bancomundial.org/indicator/ST.INT.XPND.CD?end=2019&start=2019&view=map&year=2019" target="_blank" rel="noopener">https://datos.bancomundial.org/indicator/ST.INT.XPND.CD?end=2019&start=2019&view=map&year=2019</a>
+            <span class="source-meta"> — Grupo Banco Mundial, 2026</span>
+          </span>
+        </li>
+        <li>
+          <span class="source-bullet"></span>
+          <span>
+            <a href="https://datos.bancomundial.org/indicador/SI.POV.GINI?locations=ES" target="_blank" rel="noopener">https://datos.bancomundial.org/indicador/SI.POV.GINI?locations=ES</a>
+            <span class="source-meta"> — Grupo Banco Mundial, 2026</span>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Actividad 3 Proyecto · Visualización adaptada · Jorge Andrés Pérez G · Hugo Fernando Sánchez C
+</footer>
+
+</body>
+</html>
